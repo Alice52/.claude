@@ -25,7 +25,11 @@ Nothing to commit.
 
 Stop.
 
-Store result as `changed_files`.
+Show file list (from `changed_files`):
+
+| File | Status |
+| ---- | ------ |
+| ...  | ...    |
 
 ---
 
@@ -71,16 +75,10 @@ If any rule fails → STOP immediately.
 
 ### 4. Confirm
 
-Show file list (from `changed_files`):
-
-| File | Status |
-| ---- | ------ |
-| ...  | ...    |
-
 Show commit message:
 
 ```text
-<commit-message>
+<message>
 ```
 
 Ask:
