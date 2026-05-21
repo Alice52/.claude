@@ -7,6 +7,8 @@ tags: [git, commit, workflow]
 
 Analyze current git changes and generate a commit message.
 
+---
+
 ## Steps
 
 ### 1. Check changes
@@ -15,24 +17,52 @@ Analyze current git changes and generate a commit message.
 git status --short
 ```
 
-No changes → `Nothing to commit.` Stop.
+If empty:
 
-```bash
-git diff HEAD
+```text
+Nothing to commit.
 ```
 
-### 2. Generate message
+Stop.
 
-Format: `type(scope): [image] message`
+---
 
-- **type**: feat / fix / refactor / docs / test / chore / perf
-- **scope**: infer from changed files (e.g. `rpc-ums` → `ums`, `internal/auth` → `auth`). Multiple scopes → pick dominant one. Unclear → ask.
-- **tag**: include `[image]` iff any `*.go` file changed
-- **message**: lowercase, imperative, ≤72 chars, no ending period, describe intent
+### 2. Generate commit message
 
-Examples: `feat(user): [image] support avatar crop` / `refactor(admin): simplify rpc client wiring`
+Format:
+
+```text
+type(scope): [image] message
+```
+
+Rules:
+
+- type (required): feat / fix / refactor / docs / test / chore / perf
+- scope (required): infer from changed files
+  - rpc-ums → ums
+  - rpc-pay → payment
+  - internal/auth → auth
+  - unclear → ask user and stop
+- message(required):
+  - lowercase
+  - imperative
+  - ≤ 72 chars
+  - no ending period
+- [image]&#58; only if any *.go file changed
+
+---
+
+If any rule cannot be satisfied → stop and ask.
+
+---
 
 ### 3. Confirm
+
+Show:
+
+```text
+<commit-message>
+```
 
 Use `AskUserQuestion`:
 
@@ -41,19 +71,21 @@ Use `AskUserQuestion`:
 - **options**: `Yes` / `No`
 - **preview** (on `Yes`):
 
-  ```
-  <commit-message>
-  ```
-
 If `No` → stop.
 
-### 4. Commit and push
+---
+
+### 4. Execute
 
 ```bash
-git add -A && git commit -m "<message>" && git push
+git add -A
+git commit -m "<message>"
+git push
 ```
 
-Any step fails → show error, stop.
+If any step fails → show error and stop.
+
+---
 
 ### 5. Done
 
@@ -61,14 +93,16 @@ Any step fails → show error, stop.
 ## Commit Complete
 
 <message>
-✓ committed and pushed
+✓ done
 ```
 
 ---
 
 ## Guardrails
 
-- Always inspect git status and diff before generating message
-- Never invent scope — ask if unclear
-- Message ≤72 chars, lowercase, imperative
-- Never push unless commit succeeds
+- Always check git status and diff first
+- Scope is mandatory
+- Never guess scope
+- Keep message ≤72 chars
+- Must confirm before push
+- Stop on any error
