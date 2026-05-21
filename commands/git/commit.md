@@ -1,6 +1,6 @@
 ---
-name: "commit"
-description: "Analyze git changes, generate a conventional commit, commit, and push"
+name: 'commit'
+description: 'Analyze git changes, generate a conventional commit, commit, and push'
 category: Workflow
 tags: [git, commit, workflow]
 ---
@@ -25,6 +25,8 @@ Nothing to commit.
 
 Stop.
 
+Store result as `changed_files`.
+
 ---
 
 ### 2. Generate commit message
@@ -38,44 +40,64 @@ type(scope): [image] message
 Rules:
 
 - type (required): feat / fix / refactor / docs / test / chore / perf
-- scope (required): infer from changed files
+- scope (required):
   - rpc-ums → ums
   - rpc-pay → payment
-  - internal/auth → auth
-  - unclear → ask user and stop
-- message(required):
+  - unclear → STOP and ask user
+- message (required):
   - lowercase
   - imperative
   - ≤ 72 chars
   - no ending period
-- [image]&#58; only if any *.go file changed
+- [image] only if any \*.go file changed
 
 ---
 
-If any rule cannot be satisfied → stop and ask.
+### 3. Validate (MUST DO BEFORE CONTINUE)
+
+Check ALL rules:
+
+- type exists
+- scope exists
+- message valid
+- format correct
+- length ≤ 72
+- lowercase enforced
+- image rule correct
+
+If any rule fails → STOP immediately.
 
 ---
 
-### 3. Confirm
+### 4. Confirm
 
-Show:
+Show file list (from `changed_files`):
+
+| File | Status |
+| ---- | ------ |
+| ...  | ...    |
+
+Show commit message:
 
 ```text
 <commit-message>
 ```
 
+Ask:
+
 Use `AskUserQuestion`:
 
-- **header**: `Commit`
-- **question**: `Commit and push?`
-- **options**: `Yes` / `No`
-- **preview** (on `Yes`):
+- header: `Commit`
+- question: `Commit and push?`
+- options: `Yes` / `No`
 
 If `No` → stop.
 
+If `Yes` → continue.
+
 ---
 
-### 4. Execute
+### 5. Execute
 
 ```bash
 git add -A
@@ -87,7 +109,7 @@ If any step fails → show error and stop.
 
 ---
 
-### 5. Done
+### 6. Done
 
 ```text
 ## Commit Complete
@@ -100,9 +122,10 @@ If any step fails → show error and stop.
 
 ## Guardrails
 
-- Always check git status and diff first
-- Scope is mandatory
+- Always check git status before anything
+- Always validate rules before confirmation
 - Never guess scope
-- Keep message ≤72 chars
+- Scope is mandatory
+- Keep message ≤ 72 chars
 - Must confirm before push
 - Stop on any error
