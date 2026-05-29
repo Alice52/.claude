@@ -1,11 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git *)",
       "Read(*)",
       "Write(*)",
       "Edit(*)",
-      "MultiEdit(*)"
+      "MultiEdit(*)",
+      "Bash(git *)",
+      "Bash(git commit *)",
+      "Bash(git fetch *)",
+      "Bash(git tag *)",
+      "Bash(git push *)",
+      "Bash(openspec *)",
+      "Bash(go *)"
     ]
   }
 }
