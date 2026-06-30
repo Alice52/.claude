@@ -11,7 +11,17 @@
       "Bash(git tag *)",
       "Bash(git push *)",
       "Bash(openspec *)",
-      "Bash(go *)"
+      "Bash(go *)",
+      "Bash(.specify/scripts/bash/*.* *)",
+      "Bash(.specify/scripts/bash/create-new-feature.sh *)",
+      "Bash(.specify/scripts/bash/plugin-loader.sh *)",
+      "Bash(.specify/scripts/bash/setup-plan.sh *)",
+      "Bash(goctl --version)",
+      "Bash(goctl rpc *)",
+      "Bash(GONOSUMDB='*' GONOSUMCHECK='*' go mod *)",
+      "Bash(GONOSUMDB='*' go mod tidy)",
+      "Bash(GONOSUMDB='*' GOPRIVATE='github.com/wordpress-plus/*' go get *)",
+      "Read(//Users/zack/go/pkg/mod/github.com/wordpress-plus/proto-tracing@v0.1.1/**)"
     ]
   }
 }
