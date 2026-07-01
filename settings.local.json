@@ -1,6 +1,8 @@
 {
   "permissions": {
+    "defaultMode": "acceptEdits",
     "allow": [
+      "Bash",
       "Read(*)",
       "Write(*)",
       "Edit(*)",
@@ -21,7 +23,13 @@
       "Bash(GONOSUMDB='*' GONOSUMCHECK='*' go mod *)",
       "Bash(GONOSUMDB='*' go mod tidy)",
       "Bash(GONOSUMDB='*' GOPRIVATE='github.com/wordpress-plus/*' go get *)",
-      "Read(//Users/zack/go/pkg/mod/github.com/wordpress-plus/proto-tracing@v0.1.1/**)"
+      "Read(//Users/zack/go/pkg/mod/github.com/wordpress-plus/proto-tracing@v0.1.1/**)",
+      "Bash(sort -tT -k2 -n)",
+      "Bash(awk '{id=substr\\($1,2\\)+0; if\\(NR>1 && id!=prev+1\\) print \"GAP: T\" prev \" → T\" id; prev=id} END{print \"Last: T\" prev \", Total: \" NR}')",
+      "Bash(cp -r /Users/zack/workspace/wpp/rpc-ums/pbums.bak/* /tmp/pbums/)",
+      "Read(//private/tmp/pbums/**)",
+      "Bash(mkdir -p /tmp/pbums/constu)",
+      "Bash(cp /Users/zack/workspace/wpp/rpc-ums/constu/constant.go /tmp/pbums/constu/constant.go)"
     ]
   }
 }
